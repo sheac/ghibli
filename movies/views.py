@@ -1,12 +1,17 @@
-from django.http import HttpResponse
-import json
+from django.http import JsonResponse
+
+from . import config
+from .clients import GhibliClient
+from .services import GhibliService
 
 
 def index(request):
-    some_data_to_dump = {
-        'some_var_1': 'foo',
-        'some_var_2': 'bar',
-    }
+    client = GhibliClient(config.GHIBLI_URL)
+    service = GhibliService(client)
+    film_people = service.get_film_people()
 
-    data = json.dumps(some_data_to_dump)
-    return HttpResponse(data, content_type='application/json')
+    return JsonResponse(
+        film_people,
+        json_dumps_params={'indent': 2},
+        safe=False,
+    )
