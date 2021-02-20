@@ -9,7 +9,7 @@ class GhibliService:
 
         film_people = {}
         for film in films:
-            film_people[film.id] = {'title': film.title, 'people': []}
+            film_people[film.id] = {'id': film.id, 'title': film.title, 'people': []}
 
         for person in people:
             for film_id in person.film_ids:
