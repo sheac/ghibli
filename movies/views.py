@@ -9,10 +9,8 @@ from .services import GhibliService
 
 logger = logging.getLogger(__name__)
 
-ONE_MINUTE = 60
 
-
-@cache_page(ONE_MINUTE)
+@cache_page(config.CACHE_TTL)
 def index(request):
     client = GhibliClient(config.GHIBLI_URL)
     service = GhibliService(client)
