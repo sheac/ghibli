@@ -1,7 +1,6 @@
 import httpretty
-from django.test import TestCase, Client
 from django.core.cache import cache
-
+from django.test import TestCase, Client
 
 from ..clients import GhibliClient
 from ..config import GHIBLI_URL
