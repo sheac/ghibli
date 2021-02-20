@@ -1,5 +1,6 @@
-from django.http import JsonResponse
 import logging
+
+from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
 
 from . import config

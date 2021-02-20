@@ -6,10 +6,10 @@ from ..services import GhibliService
 
 class MockClient:
     FILMS = [
-            Film("abc", "Kickass"),
-            Film("def", "The Incredibles"),
-            Film("ghi", "The Avengers"),
-        ]
+        Film("abc", "Kickass"),
+        Film("def", "The Incredibles"),
+        Film("ghi", "The Avengers"),
+    ]
 
     PEOPLE = [
         Person("Rodney Dangerfield", ["abc", "def"]),

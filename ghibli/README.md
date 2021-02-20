@@ -10,8 +10,7 @@
 ./run_server.sh
 ```
 
-Then to access, hit `127.0.0.1:8000/movies`.
-The response is JSON formatted.
+Then to access, hit `127.0.0.1:8000/movies`. The response is JSON formatted.
 
 ## Run tests
 

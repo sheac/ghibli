@@ -1,8 +1,7 @@
-from urllib.request import urlopen
-from urllib.parse import urljoin
 import json
-
 import logging
+from urllib.parse import urljoin
+from urllib.request import urlopen
 
 from .models import Film, Person
 

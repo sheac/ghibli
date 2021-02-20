@@ -17,7 +17,6 @@ class GhibliService:
         people = self.client.get_people()
         logger.info("found %s people" % len(people))
 
-
         film_people = {}
         for film in films:
             film_people[film.id] = {'id': film.id, 'title': film.title, 'people': []}

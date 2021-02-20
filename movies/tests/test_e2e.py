@@ -1,14 +1,14 @@
-from django.test import TestCase, Client
 import httpretty
+from django.test import TestCase, Client
 
-from ..config import GHIBLI_URL
 from ..clients import GhibliClient
+from ..config import GHIBLI_URL
+
 
 class TestE2E(TestCase):
 
     @httpretty.activate
     def test_movies_smoke(self):
-
         throwaway_client = GhibliClient(GHIBLI_URL)
 
         httpretty.register_uri(
@@ -39,7 +39,6 @@ class TestE2E(TestCase):
 
     @httpretty.activate
     def test_movies_remote_failure(self):
-
         throwaway_client = GhibliClient(GHIBLI_URL)
 
         httpretty.register_uri(
@@ -57,7 +56,6 @@ class TestE2E(TestCase):
 
     @httpretty.activate
     def test_movies_malformed_response(self):
-
         throwaway_client = GhibliClient(GHIBLI_URL)
 
         httpretty.register_uri(
@@ -72,5 +70,3 @@ class TestE2E(TestCase):
         self.assertEqual(response.status_code, 500)
         response_content = response.content.decode("utf-8")
         self.assertIn("internal server error", response_content)
-
-
