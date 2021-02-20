@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 import logging
+from django.views.decorators.cache import cache_page
 
 from . import config
 from .clients import GhibliClient
@@ -7,7 +8,10 @@ from .services import GhibliService
 
 logger = logging.getLogger(__name__)
 
+ONE_MINUTE = 60
 
+
+@cache_page(ONE_MINUTE)
 def index(request):
     client = GhibliClient(config.GHIBLI_URL)
     service = GhibliService(client)
