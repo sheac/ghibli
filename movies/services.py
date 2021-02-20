@@ -1,11 +1,22 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 class GhibliService:
 
     def __init__(self, client):
         self.client = client
 
     def get_film_people(self):
+        logger.info("fetching films")
         films = self.client.get_films()
+        logger.info("found %s films" % len(films))
+
+        logger.info("fetching people")
         people = self.client.get_people()
+        logger.info("found %s people" % len(people))
+
 
         film_people = {}
         for film in films:
