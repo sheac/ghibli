@@ -7,7 +7,7 @@ from ..clients import GhibliClient
 class TestE2E(TestCase):
 
     @httpretty.activate
-    def test_smoke_movies(self):
+    def test_movies_smoke(self):
 
         throwaway_client = GhibliClient(GHIBLI_URL)
 
@@ -36,5 +36,41 @@ class TestE2E(TestCase):
         self.assertIn("Godzilla", response_content)
         self.assertIn("King Kong", response_content)
         self.assertIn("Matt Damon", response_content)
+
+    @httpretty.activate
+    def test_movies_remote_failure(self):
+
+        throwaway_client = GhibliClient(GHIBLI_URL)
+
+        httpretty.register_uri(
+            httpretty.GET,
+            throwaway_client.films_url(),
+            status=404,
+        )
+
+        client = Client()
+        response = client.get("/movies/")
+
+        self.assertEqual(response.status_code, 500)
+        response_content = response.content.decode("utf-8")
+        self.assertIn("internal server error", response_content)
+
+    @httpretty.activate
+    def test_movies_malformed_response(self):
+
+        throwaway_client = GhibliClient(GHIBLI_URL)
+
+        httpretty.register_uri(
+            httpretty.GET,
+            throwaway_client.films_url(),
+            body="""[ {"id": "a"id{{"""
+        )
+
+        client = Client()
+        response = client.get("/movies/")
+
+        self.assertEqual(response.status_code, 500)
+        response_content = response.content.decode("utf-8")
+        self.assertIn("internal server error", response_content)
 
 
