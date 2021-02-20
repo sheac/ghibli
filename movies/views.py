@@ -8,7 +8,11 @@ from .services import GhibliService
 def index(request):
     client = GhibliClient(config.GHIBLI_URL)
     service = GhibliService(client)
-    film_people = service.get_film_people()
+
+    try:
+        film_people = service.get_film_people()
+    except:
+        return JsonResponse({'success': 'false', 'message': 'internal server error'}, status=500)
 
     return JsonResponse(
         film_people,
